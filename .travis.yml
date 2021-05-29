@@ -15,11 +15,19 @@ install:
 script:
   - python -m unittest -v tests/*.py
 
+addons:
+  sonarCloud:
+    organization: "jobadiniz"
+    token:
+      secure: $SONARCLOUD_TOKEN    
+
 # Stages
 jobs:
   include:
     - stage: unit tests
       script: python -m unittest -v tests/*.py
+    - stage: analysis
+      script: sonar-scanner -Dsonar.projectKey=JobaDiniz_fiap-devopslap
     - stage: deploy to staging
       script: skip
       deploy:
