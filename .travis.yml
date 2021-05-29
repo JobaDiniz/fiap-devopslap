@@ -17,13 +17,13 @@ script:
 
 # Definir o Deploy no Heroku
 deploy:
-  strategy: api      
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  edge: true 
-  app: fiap-devopslap
-  on:
-      branch: main
+        #strategy: api      
+        #  provider: heroku
+        #  api_key: $HEROKU_API_KEY
+        #  edge: true 
+        #  app: fiap-devopslap
+        #  on:
+        #      branch: main
   provider: gae
   keyfile: ../lab-devops-cloud-e2c2da9aee66.json
   project: lab-devops-cloud-315211
