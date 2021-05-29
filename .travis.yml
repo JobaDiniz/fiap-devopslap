@@ -19,7 +19,7 @@ addons:
   sonarCloud:
     organization: "jobadiniz"
     token:
-      secure: $SONARCLOUD_TOKEN    
+      secure: ${SONARCLOUD_TOKEN}    
 
 # Stages
 jobs:
