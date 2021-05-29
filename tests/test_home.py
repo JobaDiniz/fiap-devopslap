@@ -2,21 +2,18 @@
 from app import app
 import unittest
 
-class Test(unittest.TestCase):
+class HomePageShould(unittest.TestCase):
     def setUp(self):
-        # cria uma instância do unittest, precisa do nome "setUp"
+        app.config['DEBUG'] = True
+        app.config['TESTING'] = True
         self.app = app.test_client()
-
-        # envia uma requisicao GET para a URL
         self.result = self.app.get('/')
                                                                                                                                                    
-    def test_requisicao(self):
-        # compara o status da requisicao (precisa ser igual a 200)
+    def test_return_200_status_code(self):
         self.assertEqual(self.result.status_code, 200)
 
-    def test_conteudo(self):
-        # verifica o retorno do conteudo da pagina
-        self.assertEqual(self.result.data.decode('utf-8'), "Hello World")
+    def test_contain_welcome_in_body(self):
+        self.assertIn("Welcome", self.result.data.decode("utf-8"))
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
