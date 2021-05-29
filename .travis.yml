@@ -15,20 +15,33 @@ install:
 script:
   - python -m unittest -v test
 
-# Definir o Deploy no Heroku
-deploy:
-        #strategy: api      
-        #  provider: heroku
-        #  api_key: $HEROKU_API_KEY
-        #  edge: true 
-        #  app: fiap-devopslap
-        #  on:
-        #      branch: main
-  provider: gae
-  keyfile: ../lab-devops-cloud-315211-e7d9844a1880.json
-  project: lab-devops-cloud-315211
-  on:
-    branch: main      
+# Stages
+jobs:
+  include:
+    - stage: unit tests
+      script: python -m unittest -v test
+    - stage: deploy to staging
+      script: skip
+      deploy:
+        strategy: api
+        provider: heroku
+        api_key: $HEROKU_API_KEY
+        edge: true
+        app: fiap-devopslap
+        on:
+          branch: main
+    - stage: test staging
+      script: 'curl https://fiap-devopslap.herokuapp.com/'
+    - stage: deploy to production :)
+      script: skip
+      deploy:
+        provider: gae
+        keyfile: ../lab-devops-cloud-315211-e7d9844a1880.json
+        project: lab-devops-cloud-315211
+        on:
+          branch: main
+    - stage: test production
+      script: 'curl https://lab-devops-cloud-315211.uc.r.appspot.com/'
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_399cc10583e5_key -iv $encrypted_399cc10583e5_iv
