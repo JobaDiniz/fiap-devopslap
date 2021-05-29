@@ -32,7 +32,7 @@ jobs:
           branch: main
     - stage: test staging
       script: 'curl https://fiap-devopslap.herokuapp.com/'
-    - stage: deploy to production :)
+    - stage: deploy to production :smile:
       script: skip
       deploy:
         provider: gae
